@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Animator anim;
+
     private float horizontalInput;
     public float moveSpeed;
     public float sprintSpeed;
     public float jumpForce;
     private bool isFacingRight = true;
+    private float currentSpeed;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -18,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -27,19 +31,24 @@ public class PlayerController : MonoBehaviour
 
         // Player Movement
         horizontalInput = Input.GetAxis("Horizontal");
-        float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
+        currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
         Vector2 moveDirection = new Vector2(horizontalInput, 0);
         rb.velocity = new Vector2(moveDirection.x * currentSpeed, rb.velocity.y);
         Flip();
 
+        // Set animator parameters for walking and running
+        anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
+
         // Sprinting
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(horizontalInput) > 0)
         {
             isSprinting = true;
+            anim.SetBool("isRunning", true);
         }
         else
         {
             isSprinting = false;
+            anim.SetBool("isRunning", false);
         }
 
         // Jumping
@@ -47,10 +56,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
-    }
-    private void FixedUpdate()
-    {
-        rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
     }
 
     private void Flip()
