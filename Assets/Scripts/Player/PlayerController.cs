@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float sprintSpeed = 10f;
-    public float jumpForce = 10f;
+    private float horizontalInput;
+    public float moveSpeed;
+    public float sprintSpeed;
+    public float jumpForce;
+    private bool isFacingRight = true;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -24,10 +26,11 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
         // Player Movement
-        float horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = Input.GetAxis("Horizontal");
         float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
         Vector2 moveDirection = new Vector2(horizontalInput, 0);
         rb.velocity = new Vector2(moveDirection.x * currentSpeed, rb.velocity.y);
+        Flip();
 
         // Sprinting
         if (Input.GetKey(KeyCode.LeftShift))
@@ -43,6 +46,21 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+    }
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+    }
+
+    private void Flip()
+    {
+        if (isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
         }
     }
 }
