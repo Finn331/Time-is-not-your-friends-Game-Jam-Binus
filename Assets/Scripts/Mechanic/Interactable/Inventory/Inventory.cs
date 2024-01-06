@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    private const int SLOT = 3;
+    private const int SLOTS = 3;
     private List<IInventoryItem> mItems = new List<IInventoryItem>();
     public event EventHandler<InventoryEventArgs> ItemAdded;
 
     public void AddItem(IInventoryItem item)
     {
-        if(mItems.Count < SLOT)
+        if (mItems.Count < SLOTS)
         {
-            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
-            if (collider.enabled)
+            Collider2D collider = (item as MonoBehaviour).GetComponent<Collider2D>();
+
+            if (collider != null && collider.enabled)
             {
                 collider.enabled = false;
                 mItems.Add(item);
@@ -27,4 +28,28 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+
+    // private const int SLOTS = 3;
+    // private List<IInventoryItem> mItems = new List<IInventoryItem>();
+    // public event EventHandler<InventoryEventArgs> ItemAdded;
+
+    // public void AddItem(IInventoryItem item)
+    // {
+    //     if(mItems.Count < SLOTS)
+    //     {
+    //         Collider2D collider = (item as MonoBehaviour).GetComponent<Collider2D>();
+    //         if (collider.enabled)
+    //         {
+    //             collider.enabled = false;
+    //             mItems.Add(item);
+    //             item.OnPickup();
+
+    //             if (ItemAdded != null)
+    //             {
+    //                 ItemAdded(this, new InventoryEventArgs(item));
+    //             }
+    //         }
+    //     }
+    // }
 }

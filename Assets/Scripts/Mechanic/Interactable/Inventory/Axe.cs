@@ -21,13 +21,8 @@ public class Axe : MonoBehaviour, IInventoryItem
         }
     }
 
-    public void OnPickUp()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void OnPickup()
     {
-        throw new System.NotImplementedException();
+        gameObject.SetActive(false);
     }
 }

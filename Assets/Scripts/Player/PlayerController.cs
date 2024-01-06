@@ -78,14 +78,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+        IInventoryItem item = collision.collider.GetComponent<IInventoryItem>();
         if (item != null)
         {
-            inventory.AddItem(item);
+            inventory.AddItem(item); // Hapus objek setelah ditambahkan ke inventaris (opsional)
         }
     }
+
+    // private void OnControllerColliderHit(ControllerColliderHit hit)
+    // {
+    //     IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+    //     if (item != null)
+    //     {
+    //         inventory.AddItem(item);
+    //     }
+    // }
 
     //// Basement Trigger
     //private void OnTriggerEnter2D(Collider2D collision)
