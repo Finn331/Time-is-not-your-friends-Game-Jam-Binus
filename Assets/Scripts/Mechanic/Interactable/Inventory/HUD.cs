@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    public Inventory inventory;
+    public Inventory Inventory;
 
     void Start()
     {
-        inventory.ItemAdded += InventoryScript_ItemAdd;
+        Inventory.ItemAdded += InventoryScript_ItemAdded;
     }
 
-    private void InventoryScript_ItemAdd(object sender, InventoryEventArgs e)
+    private void InventoryScript_ItemAdded(object sender, InventoryEventArgs e)
     {
         Transform inventoryPanel = transform.Find("InventoryPanel");
         foreach(Transform slot in inventoryPanel)

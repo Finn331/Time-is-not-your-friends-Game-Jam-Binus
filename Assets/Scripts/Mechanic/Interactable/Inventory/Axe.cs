@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Axe : MonoBehaviour, IInventoryItem 
+public class Axe : MonoBehaviour, IInventoryItem
 {
     public string Name
     {
