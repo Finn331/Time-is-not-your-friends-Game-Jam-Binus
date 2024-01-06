@@ -1,9 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // Basement Trigger
+    //public GameObject healthSystem;
+
+    // Animator
     private Animator anim;
 
+    // Player Controller
     private float horizontalInput;
     public float moveSpeed;
     public float sprintSpeed;
@@ -68,4 +75,22 @@ public class PlayerController : MonoBehaviour
             transform.localScale = localScale;
         }
     }
+
+    //// Basement Trigger
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.tag == "Basement")
+    //    {
+    //        healthSystem.SetActive(true);
+    //    }
+    //}
+
+    //// Basement Exit Trigger
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.tag == "BasementExit")
+    //    {
+    //        healthSystem.SetActive(false);
+    //    }
+    //}
 }

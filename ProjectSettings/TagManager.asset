@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Basement
+  - BasementExit
+  - Heal
+  - Shelf
   layers:
   - Default
   - TransparentFX
